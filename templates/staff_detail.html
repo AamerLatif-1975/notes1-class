@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><title>Staff Details</title></head>
+<body>
+<h2>{{ object.name }}</h2>
+<p><b>Designation:</b> {{ object.designation }}</p>
+<p><b>Pay Scale:</b> {{ object.pay_scale }}</p>
+<p><b>Date of Joining:</b> {{ object.date_of_joining }}</p>
+<p><b>Basic Pay:</b> {{ object.basic_pay }}</p>
+<p><b>Posting Place:</b> {{ object.posting_place }}</p>
+<p><b>Gross Pay:</b> {{ object.gross_pay }}</p>
+
+<a href="{% url 'edit_staff' object.pk %}">Edit</a>
+<a href="{% url 'staff_history' object.pk %}">View Service History</a>
+<a href="{% url 'staff_list' %}">Back to Staff List</a>
+</body>
+</html>

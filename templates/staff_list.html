@@ -31,6 +31,7 @@
         <td><a href="{% url 'edit_staff' member.pk %}">Edit</a></td>
         <td><a href="{% url 'delete_staff' member.pk %}">Delete</a></td>
         <td><a href="{% url 'staff_history' member.pk %}">Service History</a></td>
+        <td><a href="{% url 'staff_detail' member.pk %}">View</a></td>
     </tr>
     {% endfor %}
 </table>

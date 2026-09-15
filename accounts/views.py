@@ -90,4 +90,9 @@ class ServiceHistoryDeleteView(DeleteView):
 
     def get_success_url(self):
         return f'/accounts/staff/{self.object.staff.pk}/history/'
-    
+
+from django.views.generic import DetailView
+
+class StaffDetailView(DetailView):
+    model = StaffMember
+    template_name = 'staff_detail.html'    
