@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head><title>Service History</title></head>
+<body>
+<h2>Service History for {{ staff.name }}</h2>
+<table border="1" cellpadding="8">
+    <tr><th>Position</th><th>Start Date</th><th>End Date</th><th>Salary</th><th>Performance</th></tr>
+    {% for record in object_list %}
+    <tr>
+        <td>{{ record.position }}</td>
+        <td>{{ record.start_date }}</td>
+        <td>{{ record.end_date|default:"Current" }}</td>
+        <td>{{ record.salary }}</td>
+        <td>{{ record.performance_rating }}</td>
+        <td><a href="{% url 'edit_history' record.pk %}">Edit</a></td>
+        <td><a href="{% url 'delete_history' record.pk %}">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+<a href="{% url 'staff_list' %}">Back to Staff List</a>
+<a href="{% url 'add_history' staff.pk %}">Add History Record</a>
+
+</body>
+</html>

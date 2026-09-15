@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head><title>Add History</title></head>
+<body>
+<h2>Add Service History</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save">
+</form>
+</body>
+</html>
