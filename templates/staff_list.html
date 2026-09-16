@@ -9,6 +9,7 @@
     <input type="text" name="q" placeholder="Search by name...">
     <input type="submit" value="Search">
 </form>
+<div class="table-wrapper">
 <table border="1" cellpadding="8">
     <tr>
         <th>S#</th>
@@ -37,7 +38,7 @@
     </tr>
     {% endfor %}
 </table>
-
+</div>
 <div>
     {% if page_obj.has_previous %}
         <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
