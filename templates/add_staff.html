@@ -1,12 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head><title>Add Staff</title></head>
-<body>
-<h2>Add Staff Member</h2>
+{% extends 'base.html' %}
+
+{% block title %}Add Staff{% endblock %}
+
+{% block content %}
+
+<h2>Add Staff</h2>
+
 <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Save">
+    <button type="submit">Save</button>
 </form>
-</body>
-</html>
+
+{% endblock %}

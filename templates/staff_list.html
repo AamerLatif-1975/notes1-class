@@ -1,7 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head><title>Staff List</title></head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Staff List{% endblock %}
+
+{% block content %}
+
 <h2>Staff List</h2>
 <form method="GET">
     <input type="text" name="q" placeholder="Search by name...">
@@ -45,7 +47,5 @@
         <a href="?page={{ page_obj.next_page_number }}">Next</a>
     {% endif %}
 </div>
-
-</body>
-</html>
+{% endblock %}
 

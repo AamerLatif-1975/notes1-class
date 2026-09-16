@@ -1,7 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head><title>Staff Details</title></head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Staff Detail{% endblock %}
+
+{% block content %}
 <h2>{{ object.name }}</h2>
 <p><b>Designation:</b> {{ object.designation }}</p>
 <p><b>Pay Scale:</b> {{ object.pay_scale }}</p>
@@ -13,5 +14,4 @@
 <a href="{% url 'edit_staff' object.pk %}">Edit</a>
 <a href="{% url 'staff_history' object.pk %}">View Service History</a>
 <a href="{% url 'staff_list' %}">Back to Staff List</a>
-</body>
-</html>
+{% endblock %}

@@ -1,7 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head><title>Service History</title></head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Service History{% endblock %}
+
+{% block content %}
+
 <h2>Service History for {{ staff.name }}</h2>
 <table border="1" cellpadding="8">
     <tr><th>Position</th><th>Start Date</th><th>End Date</th><th>Salary</th><th>Performance</th></tr>
@@ -20,5 +22,4 @@
 <a href="{% url 'staff_list' %}">Back to Staff List</a>
 <a href="{% url 'add_history' staff.pk %}">Add History Record</a>
 
-</body>
-</html>
+{% endblock %}

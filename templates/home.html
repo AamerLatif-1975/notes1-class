@@ -1,8 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head><title>Home</title></head>
-<body>
-    <h1>Welcome, {{ user.username }}!</h1>
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+    <h1>Welcome here, {{ user.username }}!</h1>
     <a href="{% url 'logout' %}">Logout</a>
-</body>
-</html>
+{% endblock %}

@@ -1,7 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head><title>Delete History Record</title></head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Delete History Record{% endblock %}
+
+{% block content %}
+
 <h2>Delete this history record?</h2>
 <p><b>Position:</b> {{ object.position }}</p>
 <p><b>Start Date:</b> {{ object.start_date }}</p>
@@ -11,5 +13,4 @@
     <input type="submit" value="Yes, delete">
 </form>
 <a href="{% url 'staff_history' object.staff.pk %}">Cancel</a>
-</body>
-</html>
+{% endblock %}
