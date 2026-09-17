@@ -40,7 +40,17 @@ class StaffCreateView(CreateView):
     template_name = 'add_staff.html'
     success_url = '/accounts/staff/'
 
-class StaffUpdateView(UpdateView):
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
+class StaffUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = StaffMember
+    fields = [...]  # keep your existing fields list
+    template_name = 'add_staff.html'
+    success_url = '/accounts/staff/'
+
+    def test_func(self):
+        return self.request.user.is_staff
+'''class StaffUpdateView(UpdateView):
     model = StaffMember
     fields = ['serial_number', 'name', 'designation', 'pay_scale', 'date_of_joining', 'basic_pay', 'posting_place', 'gross_pay']
     template_name = 'add_staff.html'
@@ -48,7 +58,15 @@ class StaffUpdateView(UpdateView):
 class StaffDeleteView(DeleteView):
     model = StaffMember
     template_name = 'confirm_delete_staff.html'
-    success_url = '/accounts/staff/'  
+    success_url = '/accounts/staff/' ''' 
+
+class StaffDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = StaffMember
+    template_name = 'confirm_delete_staff.html'
+    success_url = '/accounts/staff/'
+
+    def test_func(self):
+        return self.request.user.is_staff    
 
 class ServiceHistoryListView(ListView):
     model = ServiceHistory
