@@ -14,8 +14,10 @@
         <td>{{ record.end_date|default:"Current" }}</td>
         <td>{{ record.salary }}</td>
         <td>{{ record.performance_rating }}</td>
+        {% if user.is_staff %}
         <td><a href="{% url 'edit_history' record.pk %}">Edit</a></td>
         <td><a href="{% url 'delete_history' record.pk %}">Delete</a></td>
+        {% endif %}
     </tr>
     {% endfor %}
 </table>

@@ -94,7 +94,17 @@ class ServiceHistoryCreateView(CreateView):
     def get_success_url(self):
         return f'/accounts/staff/{self.staff.pk}/history/'    
 
-class ServiceHistoryUpdateView(UpdateView):
+class ServiceHistoryUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = ServiceHistory
+    fields = ['position', 'start_date', 'end_date', 'salary', 'performance_rating']
+    template_name = 'add_history.html'
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def get_success_url(self):
+        return f'/accounts/staff/{self.object.staff.pk}/history/'
+'''class ServiceHistoryUpdateView(UpdateView):
     model = ServiceHistory
     fields = ['position', 'start_date', 'end_date', 'salary', 'performance_rating']
     template_name = 'add_history.html'
@@ -105,6 +115,15 @@ class ServiceHistoryUpdateView(UpdateView):
 class ServiceHistoryDeleteView(DeleteView):
     model = ServiceHistory
     template_name = 'confirm_delete_history.html'
+
+    def get_success_url(self):
+        return f'/accounts/staff/{self.object.staff.pk}/history/' '''
+class ServiceHistoryDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = ServiceHistory
+    template_name = 'confirm_delete_history.html'
+
+    def test_func(self):
+        return self.request.user.is_staff
 
     def get_success_url(self):
         return f'/accounts/staff/{self.object.staff.pk}/history/'
