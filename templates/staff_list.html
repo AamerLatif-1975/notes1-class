@@ -20,6 +20,14 @@
         <th>Basic Pay</th>
         <th>Posting Place</th>
         <th>Gross Pay</th>
+        <th>Photo</th>
+        <th>Contract Type</th>
+        {% if user.is_staff %}
+        <th>Edit</th>
+        <th>Delete</th>
+        {% endif %}
+        <th>Service History</th>
+        <th>View</th>
     </tr>
     {% for member in page_obj %}
     <tr>
