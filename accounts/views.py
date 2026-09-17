@@ -44,7 +44,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 class StaffUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = StaffMember
-    fields = [...]  # keep your existing fields list
+    fields = ['serial_number', 'name', 'designation', 'pay_scale', 'date_of_joining', 'basic_pay', 'posting_place', 'gross_pay']
     template_name = 'add_staff.html'
     success_url = '/accounts/staff/'
 
