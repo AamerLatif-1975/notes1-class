@@ -36,7 +36,8 @@ class StaffListView(ListView):
 
 class StaffCreateView(CreateView):
     model = StaffMember
-    fields = ['serial_number', 'name', 'designation', 'pay_scale', 'date_of_joining', 'basic_pay', 'posting_place', 'gross_pay']
+    fields = ['serial_number', 'name', 'designation', 'pay_scale', 'date_of_joining',
+              'basic_pay', 'posting_place', 'gross_pay', 'photo', 'contract_type']
     template_name = 'add_staff.html'
     success_url = '/accounts/staff/'
 
@@ -44,7 +45,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 class StaffUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = StaffMember
-    fields = ['serial_number', 'name', 'designation', 'pay_scale', 'date_of_joining', 'basic_pay', 'posting_place', 'gross_pay']
+    fields = ['serial_number', 'name', 'designation', 'pay_scale', 'date_of_joining', 'basic_pay', 'posting_place', 'gross_pay', 'photo', 'contract_type']
     template_name = 'add_staff.html'
     success_url = '/accounts/staff/'
 

@@ -1,7 +1,13 @@
 # Create your models here.
 from django.db import models
-
 class StaffMember(models.Model):
+    CONTRACT_TYPE_CHOICES = [
+        ('short_contract', 'Short Contract'),
+        ('pay_scale', 'Pay Scale'),
+        ('railway_employee', 'Railway Employee'),
+        ('other', 'Other'),
+    ]
+
     serial_number = models.IntegerField()
     name = models.CharField(max_length=100)
     designation = models.CharField(max_length=100)
@@ -10,6 +16,8 @@ class StaffMember(models.Model):
     basic_pay = models.DecimalField(max_digits=10, decimal_places=2)
     posting_place = models.CharField(max_length=100)
     gross_pay = models.DecimalField(max_digits=10, decimal_places=2)
+    photo = models.ImageField(upload_to='staff_photos/', blank=True, null=True)
+    contract_type = models.CharField(max_length=20, choices=CONTRACT_TYPE_CHOICES)
 
     class Meta:
         ordering = ['serial_number']
