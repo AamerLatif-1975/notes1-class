@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Separated Staff{% endblock %}
+{% block content %}
+<h2>Separated Staff</h2>
+<table border="1" cellpadding="8">
+    <tr><th>Name</th><th>Designation</th><th>Status</th><th>Separation Date</th></tr>
+    {% for member in object_list %}
+    <tr>
+        <td>{{ member.name }}</td>
+        <td>{{ member.designation }}</td>
+        <td>{{ member.get_status_display }}</td>
+        <td>{{ member.separation_date }}</td>
+        <td><a href="{% url 'restore_staff' member.pk %}">Restore</a></td>
+    </tr>
+    {% endfor %}
+</table>
+<a href="{% url 'staff_list' %}">Back to Active Staff</a>
+
+{% endblock %}

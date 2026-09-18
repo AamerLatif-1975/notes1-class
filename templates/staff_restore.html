@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Restore Employee{% endblock %}
+{% block content %}
+<h2>Restore {{ object.name }} to Active Service?</h2>
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Yes, Restore">
+</form>
+<a href="{% url 'terminated_staff' %}">Cancel</a>
+{% endblock %}

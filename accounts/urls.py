@@ -12,4 +12,7 @@ urlpatterns = [
     path('history/edit/<int:pk>/', views.ServiceHistoryUpdateView.as_view(), name='edit_history'),
     path('history/delete/<int:pk>/', views.ServiceHistoryDeleteView.as_view(), name='delete_history'),
     path('staff/<int:pk>/', views.StaffDetailView.as_view(), name='staff_detail'),
+    path('staff/separate/<int:pk>/', views.StaffSeparateView.as_view(), name='separate_staff'),
+    path('staff/terminated/', views.TerminatedStaffListView.as_view(), name='terminated_staff'),
+    path('staff/restore/<int:pk>/', views.StaffRestoreView.as_view(), name='restore_staff'),
 ]

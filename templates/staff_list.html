@@ -28,6 +28,7 @@
         {% endif %}
         <th>Service History</th>
         <th>View</th>
+        <th>Seperate</th>
     </tr>
     {% for member in page_obj %}
     <tr>
@@ -51,6 +52,7 @@
     {% endif %}
         <td><a href="{% url 'staff_history' member.pk %}">Service History</a></td>
         <td><a href="{% url 'staff_detail' member.pk %}">View</a></td>
+        <td><a href="{% url 'separate_staff' member.pk %}">Separate</a></td>
     </tr>
     {% endfor %}
 </table>

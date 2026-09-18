@@ -11,6 +11,11 @@ class StaffMember(models.Model):
         ('male', 'Male'),
         ('female', 'Female'),
     ]
+    STATUS_CHOICES = [
+    ('active', 'Active'),
+    ('resigned', 'Resigned'),
+    ('terminated', 'Terminated'),
+    ]
     serial_number = models.IntegerField()
     name = models.CharField(max_length=100)
     designation = models.CharField(max_length=100)
@@ -23,6 +28,8 @@ class StaffMember(models.Model):
     contract_type = models.CharField(max_length=20, choices=CONTRACT_TYPE_CHOICES)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default='male')
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default='male')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
+    separation_date = models.DateField(blank=True, null=True)
     class Meta:
         ordering = ['serial_number']
 

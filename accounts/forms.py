@@ -11,4 +11,4 @@ class StaffMemberForm(forms.ModelForm):
     class Meta:
         model = StaffMember
         fields = ['serial_number', 'name', 'designation', 'pay_scale', 'date_of_joining',
-                  'basic_pay', 'posting_place', 'gross_pay', 'photo', 'contract_type']        
+                  'basic_pay', 'posting_place', 'gross_pay', 'photo', 'contract_type', 'status', 'separation_date']        
