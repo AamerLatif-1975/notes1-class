@@ -5,7 +5,7 @@ from .models import StaffMember
     class Meta:
         model = StaffMember
         fields = ['serial_number', 'name', 'designation', 'pay_scale', 'date_of_joining',
-                  'basic_pay', 'posting_place', 'gross_pay']
+                  'basic_pay', 'posting_place', 'gross_pay', 'gender']
 '''
 class StaffMemberForm(forms.ModelForm):
     class Meta:

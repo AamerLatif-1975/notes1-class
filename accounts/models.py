@@ -7,7 +7,10 @@ class StaffMember(models.Model):
         ('railway_employee', 'Railway Employee'),
         ('other', 'Other'),
     ]
-
+    GENDER_CHOICES = [
+        ('male', 'Male'),
+        ('female', 'Female'),
+    ]
     serial_number = models.IntegerField()
     name = models.CharField(max_length=100)
     designation = models.CharField(max_length=100)
@@ -18,7 +21,8 @@ class StaffMember(models.Model):
     gross_pay = models.DecimalField(max_digits=10, decimal_places=2)
     photo = models.ImageField(upload_to='staff_photos/', blank=True, null=True)
     contract_type = models.CharField(max_length=20, choices=CONTRACT_TYPE_CHOICES)
-
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default='male')
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default='male')
     class Meta:
         ordering = ['serial_number']
 
@@ -32,7 +36,7 @@ class ServiceHistory(models.Model):
     end_date = models.DateField(null=True, blank=True)
     salary = models.DecimalField(max_digits=10, decimal_places=2)
     performance_rating = models.CharField(max_length=50, blank=True)
-
+    
     class Meta:
         ordering = ['-start_date']
 
