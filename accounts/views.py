@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.views.generic.edit import CreateView
 from .models import StaffMember, ServiceHistory
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404
 def signup(request):
     if request.method == 'POST':
@@ -24,7 +25,8 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     return render(request, 'home.html')
 
-class StaffListView(ListView):
+class StaffListView(LoginRequiredMixin, ListView):
+#class StaffListView(ListView):
     model = StaffMember
     template_name = 'staff_list.html'
     paginate_by = 2
@@ -33,15 +35,13 @@ class StaffListView(ListView):
         if query:
             return StaffMember.objects.filter(name__icontains=query)
         return StaffMember.objects.all()
-
-class StaffCreateView(CreateView):
+class StaffCreateView(LoginRequiredMixin, CreateView):  
+#class StaffCreateView(CreateView):
     model = StaffMember
     fields = ['serial_number', 'name', 'designation', 'pay_scale', 'date_of_joining',
               'basic_pay', 'posting_place', 'gross_pay', 'photo', 'contract_type', 'gender']
     template_name = 'add_staff.html'
     success_url = '/accounts/staff/'
-
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 class StaffUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = StaffMember
@@ -69,7 +69,7 @@ class StaffDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         return self.request.user.is_staff    
 
-class ServiceHistoryListView(ListView):
+class ServiceHistoryListView(LoginRequiredMixin, ListView):
     model = ServiceHistory
     template_name = 'staff_history.html'
 
@@ -82,7 +82,7 @@ class ServiceHistoryListView(ListView):
         context['staff'] = self.staff
         return context    
 
-class ServiceHistoryCreateView(CreateView):
+class ServiceHistoryCreateView(LoginRequiredMixin, CreateView):
     model = ServiceHistory
     fields = ['position', 'start_date', 'end_date', 'salary', 'performance_rating']
     template_name = 'add_history.html'
@@ -130,7 +130,7 @@ class ServiceHistoryDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteVi
         return f'/accounts/staff/{self.object.staff.pk}/history/'
 
 from django.views.generic import DetailView
-
-class StaffDetailView(DetailView):
+class StaffDetailView(LoginRequiredMixin, DetailView):
+#class StaffDetailView(DetailView):
     model = StaffMember
     template_name = 'staff_detail.html'    
