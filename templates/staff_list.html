@@ -9,6 +9,11 @@
     <input type="text" name="q" placeholder="Search by name...">
     <input type="submit" value="Search">
 </form>
+<a href="{% url 'add_staff' %}">Add Staff</a>
+<a href="{% url 'terminated_staff' %}">Terminated Staff</a>
+<a href="{% url 'staff_list_print' %}" target="_blank">Print Staff List</a>
+<a href="{% url 'export_excel' %}">Download Excel</a>
+<a href="{% url 'export_pdf' %}">Download PDF</a>
 <div class="table-wrapper">
 <table border="1" cellpadding="8">
     <tr>

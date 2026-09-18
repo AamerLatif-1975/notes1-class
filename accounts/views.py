@@ -4,7 +4,7 @@ from django.shortcuts import render
 # accounts/views.py
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, View
 from django.views.generic.edit import CreateView
 from .models import StaffMember, ServiceHistory
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -208,3 +208,77 @@ class StaffDetailView(LoginRequiredMixin, DetailView):
 #class StaffDetailView(DetailView):
     model = StaffMember
     template_name = 'staff_detail.html'    
+from django.utils import timezone
+
+class StaffListPrintView(LoginRequiredMixin, ListView):
+    model = StaffMember
+    template_name = 'staff_list_print.html'
+    context_object_name = 'staff'
+
+    def get_queryset(self):
+        return StaffMember.objects.filter(status='active')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['report_date'] = timezone.now().strftime('%d %B %Y')
+        return context
+import openpyxl
+from django.http import HttpResponse
+
+class StaffExcelExportView(LoginRequiredMixin, View):
+    def get(self, request):
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = "Staff List"
+
+        ws.append(['S#', 'Name', 'Designation', 'Pay Scale', 'Date of Joining', 'Posting Place', 'Status'])
+
+        staff = StaffMember.objects.filter(status='active')
+        for i, member in enumerate(staff, start=1):
+            ws.append([
+                i, member.name, member.designation, member.pay_scale,
+                member.date_of_joining.strftime('%d-%m-%Y'),
+                member.posting_place, member.get_status_display()
+            ])
+
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename="staff_list.xlsx"'
+        wb.save(response)
+        return response   
+
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib import colors
+from io import BytesIO
+
+class StaffPdfExportView(LoginRequiredMixin, View):
+    def get(self, request):
+        buffer = BytesIO()
+        doc = SimpleDocTemplate(buffer, pagesize=letter)
+        styles = getSampleStyleSheet()
+
+        elements = [Paragraph("Staff List Report", styles['Title'])]
+
+        data = [['S#', 'Name', 'Designation', 'Pay Scale', 'Date of Joining', 'Posting Place']]
+        staff = StaffMember.objects.filter(status='active')
+        for i, member in enumerate(staff, start=1):
+            data.append([
+                i, member.name, member.designation, member.pay_scale,
+                member.date_of_joining.strftime('%d-%m-%Y'), member.posting_place
+            ])
+
+        table = Table(data)
+        table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#1a3c6e')),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+            ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
+        ]))
+        elements.append(table)
+
+        doc.build(elements)
+        buffer.seek(0)
+
+        response = HttpResponse(buffer, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="staff_list.pdf"'
+        return response     

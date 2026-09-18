@@ -65,3 +65,16 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #2b9e3a;
 }
+
+@media print {
+    nav, .navbar, form, .no-print, a {
+        display: none;
+    }
+    body {
+        background: white;
+        color: black;
+    }
+    table, th, td {
+        border: 1px solid black !important;
+    }
+}

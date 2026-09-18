@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Staff List Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        h1 { text-align: center; }
+        .report-date { text-align: center; color: #555; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 6px; text-align: left; font-size: 12px; }
+        th { background-color: #eee; }
+    </style>
+</head>
+<body>
+    <h1>Staff List Report</h1>
+    <p class="report-date">Generated on {{ report_date }}</p>
+    <table>
+    <tr>
+        <th>S#</th><th>Name</th><th>Designation</th><th>Pay Scale</th>
+        <th>Date of Joining</th><th>Posting Place</th><th>Status</th>
+    </tr>
+    {% for member in staff %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ member.name }}</td>
+        <td>{{ member.designation }}</td>
+        <td>{{ member.pay_scale }}</td>
+        <td>{{ member.date_of_joining }}</td>
+        <td>{{ member.posting_place }}</td>
+        <td>{{ member.get_status_display }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

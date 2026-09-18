@@ -15,4 +15,7 @@ urlpatterns = [
     path('staff/separate/<int:pk>/', views.StaffSeparateView.as_view(), name='separate_staff'),
     path('staff/terminated/', views.TerminatedStaffListView.as_view(), name='terminated_staff'),
     path('staff/restore/<int:pk>/', views.StaffRestoreView.as_view(), name='restore_staff'),
+    path('staff/print/', views.StaffListPrintView.as_view(), name='staff_list_print'),
+    path('staff/export/excel/', views.StaffExcelExportView.as_view(), name='export_excel'),
+    path('staff/export/pdf/', views.StaffPdfExportView.as_view(), name='export_pdf'),
 ]
