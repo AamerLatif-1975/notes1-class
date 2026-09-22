@@ -49,3 +49,45 @@ class ServiceHistory(models.Model):
 
     def __str__(self):
         return f"{self.staff.name} - {self.position}"    
+
+class DisciplinaryAction(models.Model):
+    ACTION_TYPE_CHOICES = [
+        ('warning', 'Warning'),
+        ('show_cause', 'Show Cause Notice'),
+        ('penalty', 'Penalty'),
+        ('suspension', 'Suspension'),
+        ('other', 'Other'),
+    ]
+
+    staff = models.ForeignKey(StaffMember, on_delete=models.CASCADE, related_name='disciplinary_actions')
+    date = models.DateField()
+    action_type = models.CharField(max_length=20, choices=ACTION_TYPE_CHOICES)
+    description = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ['-date']
+
+    def __str__(self):
+        return f"{self.staff.name} - {self.get_action_type_display()}"  
+
+from django.contrib.auth.models import User
+class AuditLog(models.Model):
+    ACTION_CHOICES = [
+        ('created', 'Created'),
+        ('updated', 'Updated'),
+        ('deleted', 'Deleted'),
+        ('separated', 'Separated'),
+        ('restored', 'Restored'),
+    ]
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    action = models.CharField(max_length=20, choices=ACTION_CHOICES)
+    model_name = models.CharField(max_length=50)
+    object_repr = models.CharField(max_length=200)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-timestamp']
+
+    def __str__(self):
+        return f"{self.user} {self.action} {self.model_name}: {self.object_repr}"
+      

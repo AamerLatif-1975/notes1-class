@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Disciplinary Actions{% endblock %}
+{% block content %}
+<h2>Disciplinary Actions for {{ staff.name }}</h2>
+{% if user.is_staff %}
+<a href="{% url 'add_disciplinary' staff.pk %}">Add Disciplinary Action</a>
+{% endif %}
+<table border="1" cellpadding="8">
+    <tr><th>Date</th><th>Action Type</th><th>Description</th>{% if user.is_staff %}<th>Edit</th><th>Delete</th>{% endif %}</tr>
+    {% for action in object_list %}
+    <tr>
+        <td>{{ action.date }}</td>
+        <td>{{ action.get_action_type_display }}</td>
+        <td>{{ action.description }}</td>
+        {% if user.is_staff %}
+        <td><a href="{% url 'edit_disciplinary' action.pk %}">Edit</a></td>
+        <td><a href="{% url 'delete_disciplinary' action.pk %}">Delete</a></td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+<a href="{% url 'staff_detail' staff.pk %}">Back to Staff Details</a>
+{% endblock %}

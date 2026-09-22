@@ -18,4 +18,9 @@ urlpatterns = [
     path('staff/print/', views.StaffListPrintView.as_view(), name='staff_list_print'),
     path('staff/export/excel/', views.StaffExcelExportView.as_view(), name='export_excel'),
     path('staff/export/pdf/', views.StaffPdfExportView.as_view(), name='export_pdf'),
+    path('staff/<int:pk>/disciplinary/', views.DisciplinaryActionListView.as_view(), name='disciplinary_list'),
+    path('staff/<int:pk>/disciplinary/add/', views.DisciplinaryActionCreateView.as_view(), name='add_disciplinary'),
+    path('disciplinary/edit/<int:pk>/', views.DisciplinaryActionUpdateView.as_view(), name='edit_disciplinary'),
+    path('disciplinary/delete/<int:pk>/', views.DisciplinaryActionDeleteView.as_view(), name='delete_disciplinary'),
+    path('dashboard/stats/', views.DashboardStatsView.as_view(), name='dashboard_stats'),
 ]

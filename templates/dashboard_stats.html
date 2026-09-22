@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard Statistics{% endblock %}
+{% block content %}
+<h2>Staff Statistics</h2>
+
+<div class="stats-summary">
+    <div class="stat-box">
+        <span class="stat-number">{{ total_active }}</span>
+        <span class="stat-label">Active Staff</span>
+    </div>
+    <div class="stat-box">
+        <span class="stat-number">{{ total_terminated }}</span>
+        <span class="stat-label">Separated Staff</span>
+    </div>
+</div>
+
+<h3>By Gender</h3>
+<canvas id="genderChart" width="300" height="300"></canvas>
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Gender</th>
+        <th>Number of Staff</th>
+    </tr>
+
+    {% for item in by_gender %}
+    <tr>
+        <td>{{ item.gender }}</td>
+        <td>{{ item.count }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h3>By Contract Type</h3>
+<canvas id="contractChart" width="300" height="300"></canvas>
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Contract Type</th>
+        <th>Number of Staff</th>
+    </tr>
+
+    {% for item in by_contract %}
+    <tr>
+        <td>{{ item.contract_type }}</td>
+        <td>{{ item.count }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<h3>Recent Separations</h3>
+<table border="1" cellpadding="8">
+    <tr><th>Name</th><th>Status</th><th>Separation Date</th></tr>
+    {% for member in recent_separations %}
+    <tr>
+        <td>{{ member.name }}</td>
+        <td>{{ member.get_status_display }}</td>
+        <td>{{ member.separation_date }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const genderData = {
+        labels: [{% for item in by_gender %}'{{ item.gender }}',{% endfor %}],
+        datasets: [{
+            data: [{% for item in by_gender %}{{ item.count }},{% endfor %}],
+            backgroundColor: ['#1a3c6e', '#2b5a9e', '#7a9cc6']
+        }]
+    };
+    new Chart(document.getElementById('genderChart'), {
+        type: 'pie',
+        data: genderData
+    });
+
+    const contractData = {
+        labels: [{% for item in by_contract %}'{{ item.contract_type }}',{% endfor %}],
+        datasets: [{
+            data: [{% for item in by_contract %}{{ item.count }},{% endfor %}],
+            backgroundColor: ['#1a3c6e', '#2b5a9e', '#7a9cc6', '#a9c6e8']
+        }]
+    };
+    new Chart(document.getElementById('contractChart'), {
+        type: 'pie',
+        data: contractData
+    });
+</script>
+{% endblock %}

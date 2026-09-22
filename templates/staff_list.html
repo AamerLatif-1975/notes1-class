@@ -5,15 +5,59 @@
 {% block content %}
 
 <h2>Staff List</h2>
+
+
 <form method="GET">
-    <input type="text" name="q" placeholder="Search by name...">
+
+    <input type="text"
+           name="q"
+           placeholder="Search by name..."
+           value="{{ request.GET.q }}">
+
+    <select name="status">
+        <option value="">All Status</option>
+        <option value="active">Active</option>
+        <option value="resigned">Resigned</option>
+        <option value="terminated">Terminated</option>
+    </select>
+
+    <select name="gender">
+        <option value="">All Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select>
+
+    <select name="contract_type">
+        <option value="">All Contract Types</option>
+        <option value="short_contract">Short Contract</option>
+        <option value="pay_scale">Pay Scale</option>
+        <option value="railway_employee">Railway Employee</option>
+        <option value="other">Other</option>
+    </select>
+    
+    <select name="posting_place">
+        <option value="">All Posting Places</option>
+
+        {% for place in posting_places %}
+            <option value="{{ place }}"
+                {% if request.GET.posting_place == place %}selected{% endif %}>
+                {{ place }}
+            </option>
+        {% endfor %}
+
+    </select>
+
     <input type="submit" value="Search">
+
+    <a href="{% url 'staff_list' %}">Clear</a>
+
 </form>
+
 <a href="{% url 'add_staff' %}">Add Staff</a>
 <a href="{% url 'terminated_staff' %}">Terminated Staff</a>
 <a href="{% url 'staff_list_print' %}" target="_blank">Print Staff List</a>
-<a href="{% url 'export_excel' %}">Download Excel</a>
-<a href="{% url 'export_pdf' %}">Download PDF</a>
+<a href="{% url 'export_excel' %}?q={{ request.GET.q }}&status={{ request.GET.status }}&gender={{ request.GET.gender }}&contract_type={{ request.GET.contract_type }}"> Download Excel</a>
+<a href="{% url 'export_pdf' %}?q={{ request.GET.q }}&status={{ request.GET.status }}&gender={{ request.GET.gender }}&contract_type={{ request.GET.contract_type }}">  Download PDF</a>
 <div class="table-wrapper">
 <table border="1" cellpadding="8">
     <tr>
@@ -62,14 +106,33 @@
     {% endfor %}
 </table>
 </div>
+
 <div>
+
     {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        <a href="?q={{ request.GET.q }}&status={{ request.GET.status }}&gender={{ request.GET.gender }}&contract_type={{ request.GET.contract_type }}&page=1">
+            First
+        </a>
+
+        <a href="?q={{ request.GET.q }}&status={{ request.GET.status }}&gender={{ request.GET.gender }}&contract_type={{ request.GET.contract_type }}&page={{ page_obj.previous_page_number }}">
+            Previous
+        </a>
     {% endif %}
-    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+    <span>
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    </span>
+
     {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a href="?q={{ request.GET.q }}&status={{ request.GET.status }}&gender={{ request.GET.gender }}&contract_type={{ request.GET.contract_type }}&page={{ page_obj.next_page_number }}">
+            Next
+        </a>
+
+        <a href="?q={{ request.GET.q }}&status={{ request.GET.status }}&gender={{ request.GET.gender }}&contract_type={{ request.GET.contract_type }}&page={{ page_obj.paginator.num_pages }}">
+            Last
+        </a>
     {% endif %}
+
 </div>
 {% endblock %}
 

@@ -24,5 +24,6 @@
 {% endif %}
 <a href="{% url 'staff_history' object.pk %}">View Service History</a>
 <a href="{% url 'staff_list' %}">Back to Staff List</a>
+<a href="{% url 'disciplinary_list' object.pk %}">Disciplinary Actions</a>
 
 {% endblock %}

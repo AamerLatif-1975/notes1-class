@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
-
-{% block title %}Add Staff{% endblock %}
-
+{% block title %}Add / Edit Staff{% endblock %}
 {% block content %}
-
-<h2>Add Staff</h2>
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save">
-</form>
-
+<div class="form-box">
+    <h2>Staff Member Details</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <p class="field-error">{{ field.errors }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <input type="submit" value="Save" class="submit-btn">
+    </form>
+</div>
 {% endblock %}

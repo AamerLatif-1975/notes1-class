@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Confirm Delete{% endblock %}
+{% block content %}
+<h2>Delete this disciplinary record?</h2>
+<p><b>Type:</b> {{ object.get_action_type_display }}</p>
+<p><b>Date:</b> {{ object.date }}</p>
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Yes, delete">
+</form>
+<a href="{% url 'disciplinary_list' object.staff.pk %}">Cancel</a>
+{% endblock %}

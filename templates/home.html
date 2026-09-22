@@ -1,8 +1,108 @@
+
 {% extends 'base.html' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}PRACS HR Management System{% endblock %}
 
 {% block content %}
-    <h1>Welcome here, {{ user.username }}!</h1>
-    <a href="{% url 'logout' %}">Logout</a>
+
+<div class="dashboard">
+
+    <!-- Header -->
+    
+    <h1 class="pracs-title">
+        Pakistan Railway Advisory & Consultancy Services
+    </h1>
+
+    <h2 class="pracs-subtitle">
+        Human Resource & Staff Management System
+    </h2>
+
+
+
+        <div class="welcome">
+            Welcome, <strong>{{ user.username }}</strong>
+        </div>
+    </div>
+
+
+    <!-- Staff Management -->
+    <h3 class="section-title">Staff Management</h3>
+
+    <div class="dashboard-grid">
+
+        <a href="{% url 'staff_list' %}" class="dashboard-card">
+            <div class="card-icon">👥</div>
+            <h3>Staff List</h3>
+            <p>View and manage staff records</p>
+        </a>
+
+        <a href="{% url 'add_staff' %}" class="dashboard-card">
+            <div class="card-icon">➕</div>
+            <h3>Add Staff</h3>
+            <p>Register a new employee</p>
+        </a>
+
+        <a href="{% url 'terminated_staff' %}" class="dashboard-card">
+            <div class="card-icon">📋</div>
+            <h3>Separated Staff</h3>
+            <p>View resigned and terminated employees</p>
+        </a>
+
+        <a href="{% url 'dashboard_stats' %}" class="dashboard-card">
+            <div class="card-icon">📊</div>
+            <h3>Graphical View</h3>
+            <p>View staff statistics and charts</p>
+        </a>
+
+    </div>
+
+
+    <!-- Reports -->
+    <h3 class="section-title">Reports & Downloads</h3>
+
+    <div class="dashboard-grid">
+
+        <a href="{% url 'staff_list_print' %}" target="_blank" class="dashboard-card">
+            <div class="card-icon">🖨️</div>
+            <h3>Print Report</h3>
+            <p>Print the staff list</p>
+        </a>
+
+        <a href="{% url 'export_excel' %}" class="dashboard-card">
+            <div class="card-icon">📗</div>
+            <h3>Export to Excel</h3>
+            <p>Download staff list as Excel</p>
+        </a>
+
+        <a href="{% url 'export_pdf' %}" class="dashboard-card">
+            <div class="card-icon">📕</div>
+            <h3>Export to PDF</h3>
+            <p>Download staff list as PDF</p>
+        </a>
+
+    </div>
+
+
+    <!-- Administration -->
+    <h3 class="section-title">Administration</h3>
+
+    <div class="dashboard-grid">
+
+        <a href="{% url 'signup' %}" class="dashboard-card">
+            <div class="card-icon">👤</div>
+            <h3>Create New Account</h3>
+            <p>Register a new system user</p>
+        </a>
+
+        <a href="{% url 'logout' %}" class="dashboard-card logout-card">
+            <div class="card-icon">🚪</div>
+            <h3>Logout</h3>
+            <p>End your current session</p>
+        </a>
+
+    </div>
+
+</div>
+
 {% endblock %}
+
