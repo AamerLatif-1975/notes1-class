@@ -3,10 +3,15 @@
 {% block title %}Staff Detail{% endblock %}
 
 {% block content %}
+
 <h2>{{ object.name }}</h2>
+
 {% if object.photo %}
-    <img src="{{ object.photo.url }}" alt="{{ object.name }}" width="150">
+    <img src="{{ object.photo.url }}"
+         alt="{{ object.name }}"
+         width="150">
 {% endif %}
+
 <p><b>Designation:</b> {{ object.designation }}</p>
 <p><b>Pay Scale:</b> {{ object.pay_scale }}</p>
 <p><b>Date of Joining:</b> {{ object.date_of_joining }}</p>
@@ -14,14 +19,11 @@
 <p><b>Posting Place:</b> {{ object.posting_place }}</p>
 <p><b>Contract Type:</b> {{ object.get_contract_type_display }}</p>
 <p><b>Gross Pay:</b> {{ object.gross_pay }}</p>
-{% if object.photo %}
-    <p><b>Photo:</b></p>
-    <img src="{{ object.photo.url }}" width="150">
-{% endif %}
-<p><b>Contract Type:</b> {{ object.get_contract_type_display }}</p>
+
 {% if user.is_staff %}
-<a href="{% url 'edit_staff' object.pk %}">Edit</a>
+    <a href="{% url 'edit_staff' object.pk %}">Edit</a>
 {% endif %}
+
 <a href="{% url 'staff_history' object.pk %}">View Service History</a>
 <a href="{% url 'staff_list' %}">Back to Staff List</a>
 <a href="{% url 'disciplinary_list' object.pk %}">Disciplinary Actions</a>

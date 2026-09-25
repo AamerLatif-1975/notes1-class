@@ -1,28 +1,62 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Staff Portal{% endblock %}</title>
+
     <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <!-- Small Footer CSS -->
+    <style>
+        .site-footer {
+            margin-top: 20px;
+            padding: 8px;
+            text-align: center;
+            font-size: 10px;
+            line-height: 1.4;
+            color: #666;
+            border-top: 1px solid #ddd;
+        }
+
+        .site-footer strong {
+            font-weight: 600;
+        }
+    </style>
+
 </head>
+
 <body>
+
 {% if user.is_authenticated %}
     <nav class="top-nav">
         <a href="{% url 'home' %}">Home</a> |
         <a href="{% url 'staff_list' %}">Staff</a> |
         <a href="{% url 'dashboard_stats' %}">Graphical View</a> |
+
         {% if user.is_staff %}
-        <a href="{% url 'add_staff' %}">Add Staff</a> 
+            <a href="{% url 'add_staff' %}">Add Staff</a> |
         {% endif %}
+
         <a href="{% url 'terminated_staff' %}">Separated Staff</a> |
+        <a href="{% url 'change_password' %}">Change Password</a> |
         <a href="{% url 'logout' %}">Logout</a> |
     </nav>
 {% endif %}
 
-    <div class="content">
-        {% block content %}
-        {% endblock %}
-    </div>
+<div class="content">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<br>
+
+<!-- Small Professional Footer -->
+<footer class="site-footer">
+    <div>HR & Staff Management System</div>
+    <div>Developed by <strong>Aamer Latif</strong></div>
+</footer>
+
 </body>
 </html>

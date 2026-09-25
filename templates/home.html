@@ -53,7 +53,13 @@
             <h3>Graphical View</h3>
             <p>View staff statistics and charts</p>
         </a>
-
+        {% if user.is_superuser %}
+        <a href="{% url 'backup_restore' %}" class="dashboard-card">
+        <div class="card-icon">💾</div>
+        <h3>Backup & Restore</h3>
+        <p>Get Backup and Restore from Backup</p>
+        </a>
+        {% endif %}
     </div>
 
 

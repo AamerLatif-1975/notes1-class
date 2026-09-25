@@ -15,10 +15,11 @@
            value="{{ request.GET.q }}">
 
     <select name="status">
-        <option value="">All Status</option>
-        <option value="active">Active</option>
-        <option value="resigned">Resigned</option>
-        <option value="terminated">Terminated</option>
+    <option value="">All Status</option>
+    <option value="active">Active</option>
+    <option value="resigned">Resigned</option>
+    <option value="terminated">Terminated</option>
+    <option value="repatriated">Repatriated</option>
     </select>
 
     <select name="gender">
@@ -69,6 +70,7 @@
         <th>Basic Pay</th>
         <th>Posting Place</th>
         <th>Gross Pay</th>
+        <th>Status</th>
         <th>Photo</th>
         <th>Contract Type</th>
         {% if user.is_staff %}
@@ -77,7 +79,7 @@
         {% endif %}
         <th>Service History</th>
         <th>View</th>
-        <th>Seperate</th>
+        <th>Change Status</th>
     </tr>
     {% for member in page_obj %}
     <tr>
@@ -89,11 +91,28 @@
         <td>{{ member.basic_pay }}</td>
         <td>{{ member.posting_place }}</td>
         <td>{{ member.gross_pay }}</td>
+        <td>{{ member.status }}</td>
         <td>
     {% if member.photo %}
-        <img src="{{ member.photo.url }}" width="50">
+        <img src="{{ member.photo.url }}"
+             alt="{{ member.name }}"
+             width="50"
+             height="60"
+             style="object-fit: cover;">
+    {% elif member.gender == 'female' %}
+        <img src="/media/staff_photos/default_female.jpg"
+             alt="Female Staff"
+             width="50"
+             height="60"
+             style="object-fit: cover;">
+    {% else %}
+        <img src="/media/staff_photos/default_male.jpg"
+             alt="Male Staff"
+             width="50"
+             height="60"
+             style="object-fit: cover;">
     {% endif %}
-    </td>
+</td>
         <td>{{ member.get_contract_type_display }}</td>
     {% if user.is_staff %}
         <td><a href="{% url 'edit_staff' member.pk %}">Edit</a></td>

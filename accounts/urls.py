@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('signup/', views.signup, name='signup'),
@@ -23,4 +24,9 @@ urlpatterns = [
     path('disciplinary/edit/<int:pk>/', views.DisciplinaryActionUpdateView.as_view(), name='edit_disciplinary'),
     path('disciplinary/delete/<int:pk>/', views.DisciplinaryActionDeleteView.as_view(), name='delete_disciplinary'),
     path('dashboard/stats/', views.DashboardStatsView.as_view(), name='dashboard_stats'),
+    path('backup/', views.BackupView.as_view(), name='backup_system'),
+    path('restore/', views.RestoreView.as_view(), name='restore_system'),
+    path('backup-restore/', views.BackupRestorePageView.as_view(), name='backup_restore'),
+    path('change-password/', auth_views.PasswordChangeView.as_view(template_name='change_password.html', success_url='/accounts/password-changed/'), name='change_password'),
+    path('password-changed/', auth_views.PasswordChangeDoneView.as_view(template_name='password_changed.html'), name='password_changed'),    
 ]

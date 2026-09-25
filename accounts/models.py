@@ -15,6 +15,7 @@ class StaffMember(models.Model):
     ('active', 'Active'),
     ('resigned', 'Resigned'),
     ('terminated', 'Terminated'),
+    ('repatriated', 'Repatriated'),
     ]
     serial_number = models.IntegerField()
     name = models.CharField(max_length=100)
@@ -27,7 +28,7 @@ class StaffMember(models.Model):
     photo = models.ImageField(upload_to='staff_photos/', blank=True, null=True)
     contract_type = models.CharField(max_length=20, choices=CONTRACT_TYPE_CHOICES)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default='male')
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default='male')
+    #gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default='male')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
     separation_date = models.DateField(blank=True, null=True)
     class Meta:
